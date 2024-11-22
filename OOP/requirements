@@ -1,0 +1,24 @@
+the library system must contain 2 interfaces. one for the book keeper and one for the borrower. 
+we must adhere to the CRUD system(Create, Read, update, and delete) specifications.
+
+
+---Book Keeper interface---
+1. View the books in the library.
+    1.1 View books
+    - must be able to view the book informations.
+    - number of copies.
+
+2. View the borrower's information.
+    - must be able to view their information.
+    - the type book they borrowed along with the date borrowed and date to be returned.
+    - number violations.
+
+3. bookkeeper must choose what to update.
+    1.1 must be able to edit the library, specifically the book infromation and number of copies.
+    1.2 must be able to edit the information of the borrower (basic information and to declare if the books they borrowed is returned, if not add a violation)
+
+4. bookkeeper must be able to delete both book and borrower in the system.
+
+
+---main file and interface---
+1. the first promt in the main must be to ask what type of user will be loging in. and the users are only Borrower and Bookkeeper. int 1 for bookkeeper, int 2 for borrower, else would be a loop condition where it must select either one.
