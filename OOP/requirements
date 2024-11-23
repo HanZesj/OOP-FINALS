@@ -19,6 +19,10 @@ we must adhere to the CRUD system(Create, Read, update, and delete) specificatio
 
 4. bookkeeper must be able to delete both book and borrower in the system.
 
-
 ---main file and interface---
 1. the first promt in the main must be to ask what type of user will be loging in. and the users are only Borrower and Bookkeeper. int 1 for bookkeeper, int 2 for borrower, else would be a loop condition where it must select either one.
+
+
+5. The bookkeeper must be the only one to initialize materials and the library would be the storage of that material and the books should also be made exclusively from the bookkeeper functions, class, and object. thats why its called a library.
+
+6. the borrower must be able to borrow the books that the bookkeeper added in the library, hence the borrower must log its actions and the bookkeeper must be able to read the logs.
