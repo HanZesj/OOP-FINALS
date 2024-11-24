@@ -9,15 +9,20 @@ public class Borrower {
     private String lastName;
     private String middleName;
     private String gender;
-    private String birthday;
-    private String contactNum;
+    private int birthday;
+    private int contactNum;
     private String email;
     private String address;
     private int numberOfViolations;
     private List<String> borrowedMaterials;
     private final BorrowerFunctions borrowerFunctions;
+    private static List<Borrower> borrowers = new ArrayList<>();
 
-    public Borrower(int borrowerID, String firstName, String lastName, String middleName, String gender, String birthday, String contactNum, String email, String address, Library library) {
+    public static void addBorrower(Borrower borrower) {
+        borrowers.add(borrower);
+    }
+
+    public Borrower(int borrowerID, String firstName, String lastName, String middleName, String gender, int birthday, int contactNum, String email, String address, Library library) {
         this.borrowerID = borrowerID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -27,7 +32,6 @@ public class Borrower {
         this.contactNum = contactNum;
         this.email = email;
         this.address = address;
-        this.numberOfViolations = 0;
         this.borrowedMaterials = new ArrayList<>();
         this.borrowerFunctions = new BorrowerFunctions(library);
     }
@@ -72,19 +76,19 @@ public class Borrower {
         this.gender = gender;
     }
 
-    public String GetBirthday() {
+    public int GetBirthday() {
         return birthday;
     }
 
-    public void SetBirthday(String birthday) {
+    public void SetBirthday(int birthday) {
         this.birthday = birthday;
     }
 
-    public String GetContactNum() {
+    public int GetContactNum() {
         return contactNum;
     }
 
-    public void SetContactNum(String contactNum) {
+    public void SetContactNum(int contactNum) {
         this.contactNum = contactNum;
     }
 

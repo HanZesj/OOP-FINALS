@@ -74,8 +74,22 @@ public class Main {
         }
     }
 
-    private static void AddBorrower(){}
-
+    private static void AddBorrower() {
+        // add a borrower in the system function
+        System.out.println("\nRegister Borrower");
+        String firstName = GetStringInput("Enter first name: ");
+        String lastName = GetStringInput("Enter last name: ");
+        String middleName = GetStringInput("Enter middle name: ");
+        String gender = GetStringInput("Enter gender: ");
+        int birthday = getIntInput("Enter birthday (YYYY/MM/DD): ");
+        int contactNum = getIntInput("Enter contact number: ");
+        String email = GetStringInput("Enter email: ");
+        String address = GetStringInput("Enter address: ");
+        int borrowerID = library.GetNextBorrowerID();
+        Borrower borrower = new Borrower(borrowerID, firstName, lastName, middleName, gender, birthday, contactNum, email, address, library);
+        library.AddBorrower(borrower);
+        System.out.println("Borrower added successfully.");
+    }
     private static void ManageMaterials(){
         
     }

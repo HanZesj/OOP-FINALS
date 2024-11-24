@@ -6,15 +6,16 @@ public abstract class Material implements Serializable {
     private String title;
     private String author;
     private String publisher;
+    private String genre;
     private int yearPublished;
     private int materialID;
     private static int nextID = 1;
     protected int copies;
     
-
-    public Material(String title, String author, String publisher, int yearPublished) {
+    public Material(String title, String author, String genre, String publisher, int yearPublished) {
         this.materialID = nextID++;
         this.title = title;
+        this.genre = genre;
         this.author = author;
         this.publisher = publisher;
         this.yearPublished = yearPublished;
@@ -30,6 +31,14 @@ public abstract class Material implements Serializable {
 
     public void SetTitle(String title){
         this.title = title;
+    }
+
+    public String GetGenre(){
+        return genre;
+    }
+
+    public void SetGenre(String Genre){
+        this.genre = Genre;
     }
 
     public int GetYearPublished(){
@@ -51,8 +60,6 @@ public abstract class Material implements Serializable {
     public void SetCopies(int copies){
         this.copies = copies;
     }
-
-
 
     public abstract String GetType();
 }

@@ -1,6 +1,7 @@
 package com.mycompany.oop.netbeans;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class BookkeeperFunctionsMaterials {
@@ -13,38 +14,66 @@ public class BookkeeperFunctionsMaterials {
     }
 
     public void AddMaterial() {
-        System.out.println("\nadd material");
-        String title = getStringInput("Enter title: ");
-        String author = getStringInput("Enter author: ");
-        String publisher = getStringInput("Enter publisher: ");
-        int yearPublished = getIntInput("Enter year published: ");
-        int copies = getIntInput("Enter number of copies: ");
-        Material material = new Book(title, author, publisher, yearPublished, copies);
-        library.AddMaterial(material);
-        System.out.println("Material added successfully with ID: " + material.GetMaterialID());
+        try {
+            System.out.println("\nAdd Material");
+            String title = getStringInput("Enter title: ");
+            String genre = getStringInput("Enter genre: ");
+            String author = getStringInput("Enter author: ");
+            String publisher = getStringInput("Enter publisher: ");
+            int yearPublished = getIntInput("Enter year published: ");
+            int copies = getIntInput("Enter number of copies: ");
+            Material material = new Book(title, genre, author, publisher, yearPublished, copies);
+            library.AddMaterial(material);
+            System.out.println("Material added successfully with ID: " + material.GetMaterialID());
+        } catch (Exception e) {
+            System.out.println("Error adding material: " + e.getMessage());
+        }
     }
 
     public void DeleteMaterial() {
-        ViewMaterials();
-        System.out.println("\ndelete material");
-        int materialID = getIntInput("Enter material ID: ");
-        library.DeleteMaterial(materialID);
-        System.out.println("Material deleted successfully.");
+        try {
+            List<Material> materials = library.GetMaterials();
+            if (materials.isEmpty()) {
+                System.out.println("No materials in the system yet.");
+                return;
+            }
+            ViewMaterials();
+            System.out.println("\nDelete Material");
+            int materialID = getIntInput("Enter material ID: ");
+            Material material = library.FindMaterial(materialID);
+            if (material == null) {
+                System.out.println("Material not found.");
+                return;
+            }
+            library.DeleteMaterial(materialID);
+            System.out.println("Material deleted successfully.");
+        } catch (Exception e) {
+            System.out.println("Error deleting material: " + e.getMessage());
+        }
     }
 
-    public void ViewMaterials() {
-        System.out.println("\nview materials");
-        for (Material material : library.GetMaterials()) {
+public void ViewMaterials() {
+    try {
+        System.out.println("\nView Materials");
+        List<Material> materials = library.GetMaterials();
+        if (materials.isEmpty()) {
+            System.out.println("No materials in the system yet.");
+            return;
+        }
+        for (Material material : materials) {
             System.out.println("Material ID: " + material.GetMaterialID());
             System.out.println("Title: " + material.GetTitle());
+            System.out.println("Genre: " + material.GetGenre());
             System.out.println("Author: " + material.GetAuthor());
             System.out.println("Publisher: " + material.GetPublisher());
             System.out.println("Year Published: " + material.GetYearPublished());
             System.out.println("Copies: " + material.GetCopies());
-            System.out.println("Type: " + material.GetType());
             System.out.println();
         }
+    } catch (Exception e) {
+        System.out.println("Error viewing materials: " + e.getMessage());
     }
+}
 
     private int getIntInput(String prompt) {
         while (true) {

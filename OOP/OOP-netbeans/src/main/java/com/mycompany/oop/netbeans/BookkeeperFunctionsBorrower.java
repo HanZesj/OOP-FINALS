@@ -1,6 +1,7 @@
 package com.mycompany.oop.netbeans;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class BookkeeperFunctionsBorrower {
@@ -13,6 +14,11 @@ public class BookkeeperFunctionsBorrower {
     }
 
     public void EditBorrower() {
+        List<Borrower> borrowers = library.GetBorrowers();
+        if (borrowers.isEmpty()) {
+            System.out.println("No borrowers in the system yet.");
+            return;
+        }
         ViewBorrowers();
         System.out.println("\nEdit Borrower");
         String borrowerID = getStringInput("Enter borrower ID: ");
@@ -25,8 +31,8 @@ public class BookkeeperFunctionsBorrower {
         String firstName = getStringInput("Enter new first name: ");
         String lastName = getStringInput("Enter new last name: ");
         String gender = getStringInput("Enter new gender: ");
-        String birthday = getStringInput("Enter new birthday: ");
-        String contactNum = getStringInput("Enter new contact number: ");
+        int birthday = getIntInput("Enter new birthday: ");
+        int contactNum = getIntInput("Enter new contact number: ");
         String email = getStringInput("Enter new email: ");
 
         borrower.SetFirstName(firstName);
@@ -51,9 +57,14 @@ public class BookkeeperFunctionsBorrower {
         System.out.println("Borrower deleted successfully.");
     }
 
-    public void ViewBorrowers() {
+public void ViewBorrowers() {
         System.out.println("\nView Borrowers");
-        for (Borrower borrower : library.GetBorrowers()) {
+        List<Borrower> borrowers = library.GetBorrowers();
+        if (borrowers.isEmpty()) {
+            System.out.println("No borrowers in the system yet.");
+            return;
+        }
+        for (Borrower borrower : borrowers) {
             System.out.println("Borrower ID: " + borrower.GetBorrowerID());
             System.out.println("Name: " + borrower.GetFirstName() + " " + borrower.GetLastName());
             System.out.println("Gender: " + borrower.GetGender());
@@ -73,6 +84,11 @@ public class BookkeeperFunctionsBorrower {
     }
 
     public void SetBorrowerViolations() {
+        List<Borrower> borrowers = library.GetBorrowers();
+        if (borrowers.isEmpty()) {
+            System.out.println("No borrowers in the system yet.");
+            return;
+        }
         ViewBorrowers();
         System.out.println("\nset borrower violations");
         String borrowerID = getStringInput("Enter borrower ID: ");

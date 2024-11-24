@@ -3,6 +3,8 @@ package com.mycompany.oop.netbeans;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import javax.swing.text.View;
+
 public class BorrowerFunctions {
     private final Library library;
     private final Scanner scanner;
@@ -61,6 +63,7 @@ public class BorrowerFunctions {
     }
 
     public void BorrowBook() {
+        ViewAvailableBooks();
         if (loggedInBorrower == null) {
             System.out.println("You must be logged in to borrow a book.");
             return;
@@ -82,6 +85,7 @@ public class BorrowerFunctions {
     }
 
     public void ReturnBook() {
+        ViewBorrowedBooks();
         if (loggedInBorrower == null) {
             System.out.println("You must be logged in to return a book.");
             return;
