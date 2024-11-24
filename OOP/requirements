@@ -26,3 +26,19 @@ we must adhere to the CRUD system(Create, Read, update, and delete) specificatio
 5. The bookkeeper must be the only one to initialize materials and the library would be the storage of that material and the books should also be made exclusively from the bookkeeper functions, class, and object. thats why its called a library.
 
 6. the borrower must be able to borrow the books that the bookkeeper added in the library, hence the borrower must log its actions and the bookkeeper must be able to read the logs.
+
+7. the borrower must be able to return the books that they borrowed, and the bookkeeper must be able to read the logs.
+
+8. the borrower must be able to view the books in the library and the bookkeeper must be able to view the borrowers.
+
+9. borrower interface. 
+    1. simple login system. if they have an account or not.
+    2. must be able to login.
+    3. must be able to register.
+    4. must be able to view the books in the library.
+    5. must be able to borrow the books.
+    6. must be able to return the books.
+    7. must be able to view their information.
+    8. must be able to view the books they borrowed.
+    9. must be able to view their violations.
+    

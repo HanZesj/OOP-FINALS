@@ -23,6 +23,31 @@ public class Library {
         return materials;
     }
 
+    public Material FindMaterial(int materialID){
+        for(Material material : materials){
+            if(material.GetMaterialID() == materialID){
+                return material;
+            }
+        }
+        return null;
+    }
+
+    // should be for the GetBorrowedMaterials method
+    public List<Material> GetBorrowedMaterials(int borrowerID){
+        List<Material> borrowedMaterials = new ArrayList<>();
+        for(Borrower borrower : borrowers){
+            if(borrower.GetBorrowerID() == borrowerID){
+                for(String materialID : borrower.GetBorrowedMaterials()){
+                    Material material = FindMaterial(Integer.parseInt(materialID));
+                    if(material != null){
+                        borrowedMaterials.add(material);
+                    }
+                }
+            }
+        }
+        return borrowedMaterials;
+    }
+
     public Material GetMaterial(int materialID){
         for(Material material : materials){
             if(material.GetMaterialID() == materialID){

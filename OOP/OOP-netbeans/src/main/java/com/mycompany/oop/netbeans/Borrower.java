@@ -1,5 +1,6 @@
 package com.mycompany.oop.netbeans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Borrower {
@@ -14,8 +15,9 @@ public class Borrower {
     private String address;
     private int numberOfViolations;
     private List<String> borrowedMaterials;
+    private final BorrowerFunctions borrowerFunctions;
 
-    public Borrower(int borrowerID, String firstName, String lastName, String middleName, String gender, String birthday, String contactNum, String email, String address, int numberOfViolations) {
+    public Borrower(int borrowerID, String firstName, String lastName, String middleName, String gender, String birthday, String contactNum, String email, String address, Library library) {
         this.borrowerID = borrowerID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,7 +27,9 @@ public class Borrower {
         this.contactNum = contactNum;
         this.email = email;
         this.address = address;
-        this.numberOfViolations = numberOfViolations;
+        this.numberOfViolations = 0;
+        this.borrowedMaterials = new ArrayList<>();
+        this.borrowerFunctions = new BorrowerFunctions(library);
     }
 
     public int GetBorrowerID() {
@@ -108,15 +112,39 @@ public class Borrower {
         this.numberOfViolations = numberOfViolations;
     }
 
-        public List<String> getBorrowedMaterials() {
+    public List<String> GetBorrowedMaterials() {
         return borrowedMaterials;
     }
 
-    public void borrowMaterial(int materialID) {
+    public void BorrowMaterial(int materialID) {
         borrowedMaterials.add(String.valueOf(materialID));
     }
 
-    public void ReturnMaterial(int materialID){
-        borrowedMaterials.remove(materialID);
+    public void ReturnMaterial(int materialID) {
+        borrowedMaterials.remove(String.valueOf(materialID));
+    }
+
+    public void ViewAvailableBooks() {
+        borrowerFunctions.ViewAvailableBooks();
+    }
+
+    public void BorrowBook(int materialID) {
+        borrowerFunctions.BorrowBook();
+    }
+
+    public void ReturnBook(int materialID) {
+        borrowerFunctions.ReturnBook();
+    }
+
+    public void ViewBorrowedBooks() {
+        borrowerFunctions.ViewBorrowedBooks();
+    }
+
+    public void ViewViolations() {
+        borrowerFunctions.ViewViolations();
+    }
+
+    public void ViewBorrowerInformation() {
+        borrowerFunctions.ViewBorrowerInformation();
     }
 }
