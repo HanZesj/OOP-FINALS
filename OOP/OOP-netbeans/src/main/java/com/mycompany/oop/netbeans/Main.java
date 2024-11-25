@@ -25,10 +25,14 @@ public class Main {
         while (true) {
             System.out.println("1. Bookkeeper");
             System.out.println("2. Borrower");
+            System.out.println("3. Exit");
             System.out.print("Enter user type: ");
             int userType = scanner.nextInt();
             if (userType == 1 || userType == 2) {
                 return userType;
+            } else if (userType == 3) {
+                System.out.println("Exiting the program.");
+                System.exit(0); // Terminate the program
             } else {
                 System.out.println("Invalid user type. Please try again.");
             }
@@ -41,7 +45,7 @@ public class Main {
             System.out.println("---Book Keeper Interface---");
             System.out.println("1. Manage Borrowers.");
             System.out.println("2. Manage Materials.");
-            System.out.println("3. Exit.");
+            System.out.println("3. Back to Main Menu.");
             int choice = getIntInput(":: ");
             switch (choice) {
                 case 1 -> bookkeeper.ManageBorrowers();
@@ -102,11 +106,11 @@ private static void ManageMaterials() {
             System.out.println("---Borrower Interface---");
             System.out.println("1. Login");
             System.out.println("2. Don't have an account? Register now.");
-            System.out.println("3. Exit.");
+            System.out.println("3. Back to Main Menu.");
             int choice = getIntInput(":: ");
             switch (choice) {
                 case 1 -> BorrowerLogin();
-                case 2 -> AddBorrower(); // register();
+                case 2 -> AddBorrower();
                 case 3 -> {
                     return;
                 }
