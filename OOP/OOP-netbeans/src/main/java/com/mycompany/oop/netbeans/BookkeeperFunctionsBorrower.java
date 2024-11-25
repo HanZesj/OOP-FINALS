@@ -44,6 +44,11 @@ public class BookkeeperFunctionsBorrower {
     }
 
     public void DeleteBorrower() {
+        List<Borrower> borrowers = library.GetBorrowers();
+        if (borrowers.isEmpty()) {
+            System.out.println("No borrowers in the system yet.");
+            return;
+        }
         ViewBorrowers();
         System.out.println("\nDelete Borrower");
         String borrowerID = getStringInput("Enter borrower ID: ");

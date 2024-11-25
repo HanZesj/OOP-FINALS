@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Borrower {
+    private static int nextID = 1;
     private int borrowerID;
     private String firstName;
     private String lastName;
@@ -16,14 +17,14 @@ public class Borrower {
     private int numberOfViolations;
     private List<String> borrowedMaterials;
     private final BorrowerFunctions borrowerFunctions;
-    private static List<Borrower> borrowers = new ArrayList<>();
+    private static final List<Borrower> borrowers = new ArrayList<>();
 
     public static void addBorrower(Borrower borrower) {
         borrowers.add(borrower);
     }
 
     public Borrower(int borrowerID, String firstName, String lastName, String middleName, String gender, int birthday, int contactNum, String email, String address, Library library) {
-        this.borrowerID = borrowerID;
+        this.borrowerID = nextID++;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
