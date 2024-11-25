@@ -12,17 +12,20 @@ public class Main {
 
     public static void main(String args[]) {
         // LoadLibraryData();
-        int userType = GetUserType();
-        if (userType == 1) {
-            BookkeeperMenu();
-        } else if (userType == 2) {
-            BorrowerMenu();
+        while (true) {
+            int userType = GetUserType();
+            if (userType == 1) {
+                BookkeeperMenu();
+            } else if (userType == 2) {
+                BorrowerMenu();
+            }
         }
     }
 
     // Methods for user type selection
     private static int GetUserType() {
         while (true) {
+            ClearScreen();
             System.out.println("1. Bookkeeper");
             System.out.println("2. Borrower");
             System.out.println("3. Exit");
@@ -42,6 +45,7 @@ public class Main {
     // Methods for bookkeeper menu
     private static void BookkeeperMenu() {
         while (true) {
+            ClearScreen();
             System.out.println("---Book Keeper Interface---");
             System.out.println("1. Manage Borrowers.");
             System.out.println("2. Manage Materials.");
@@ -51,15 +55,16 @@ public class Main {
                 case 1 -> bookkeeper.ManageBorrowers();
                 case 2 -> ManageMaterials();
                 case 3 -> {
-                    return;
-                } // Exit the BookkeeperMenu loop
+                    return; // Exit the BookkeeperMenu loop
+                }
+                default -> System.out.println("Invalid choice. Please try again.");
             }
         }
     }
 
     // Methods for managing borrowers
     private static void AddBorrower() {
-        // add a borrower in the system function
+        ClearScreen();
         System.out.println("\nRegister Borrower");
         String firstName = GetStringInput("Enter first name: ");
         scanner.nextLine();
@@ -78,31 +83,34 @@ public class Main {
         System.out.println("Your new Borrower ID is: " + borrower.GetBorrowerID());
     }
 
-//* */
-private static void ManageMaterials() {
-    while (true) {
-        System.out.println("\nManage Materials");
-        System.out.println("1. Add Material");
-        //System.out.println("2. Edit Material");
-        System.out.println("3. Delete Material");
-        System.out.println("4. View Materials");
-        System.out.println("5. Back to Main Menu");
-        int choice = getIntInput(":: ");
-        switch (choice) {
-            case 1 -> bookkeeper.AddMaterial();
-            //case 2 -> bookkeeper.EditMaterial();
-            case 3 -> bookkeeper.DeleteMaterial();
-            case 4 -> bookkeeper.ViewMaterials();
-            case 5 -> {
-                return;
+    // Methods for managing materials
+    private static void ManageMaterials() {
+        while (true) {
+            ClearScreen();
+            System.out.println("\nManage Materials");
+            System.out.println("1. Add Material");
+            // System.out.println("2. Edit Material");
+            System.out.println("3. Delete Material");
+            System.out.println("4. View Materials");
+            System.out.println("5. Back to Main Menu");
+            int choice = getIntInput(":: ");
+            switch (choice) {
+                case 1 -> bookkeeper.AddMaterial();
+                // case 2 -> bookkeeper.EditMaterial();
+                case 3 -> bookkeeper.DeleteMaterial();
+                case 4 -> bookkeeper.ViewMaterials();
+                case 5 -> {
+                    return; // Exit the ManageMaterials loop
+                }
+                default -> System.out.println("Invalid choice. Please try again.");
             }
         }
     }
-}
 
     // Methods for borrower menu
     private static void BorrowerMenu() {
         while (true) {
+            ClearScreen();
             System.out.println("---Borrower Interface---");
             System.out.println("1. Login");
             System.out.println("2. Don't have an account? Register now.");
@@ -112,7 +120,7 @@ private static void ManageMaterials() {
                 case 1 -> BorrowerLogin();
                 case 2 -> AddBorrower();
                 case 3 -> {
-                    return;
+                    return; // Exit the BorrowerMenu loop
                 }
                 default -> System.out.println("Invalid choice. Please try again.");
             }
@@ -121,6 +129,7 @@ private static void ManageMaterials() {
 
     public static void BorrowerActionsMenu() {
         while (true) {
+            ClearScreen();
             System.out.println("\nWelcome " + LoggedInBorrower.GetFirstName() + " " + LoggedInBorrower.GetLastName());
             System.out.println("1. View available books.");
             System.out.println("2. Borrow a book.");
@@ -147,6 +156,7 @@ private static void ManageMaterials() {
     }
 
     private static void BorrowerLogin() {
+        ClearScreen();
         System.out.println("\nBorrower Login");
         int borrowerID = getIntInput("Enter borrower ID: ");
         Borrower borrower = library.FindBorrower(borrowerID);
@@ -185,6 +195,19 @@ private static void ManageMaterials() {
             } catch (Exception e) {
                 System.out.println("An error occurred. Please try again.");
             }
+        }
+    }
+
+    private static void ClearScreen() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (Exception e) {
+            System.out.println("Error clearing screen: " + e.getMessage());
         }
     }
 }

@@ -15,6 +15,7 @@ public class BookkeeperFunctionsMaterials {
 
     public void AddMaterial() {
         try {
+            ClearScreen();
             System.out.println("\nAdd Material");
             String title = getStringInput("Enter title: ");
             String genre = getStringInput("Enter genre: ");
@@ -32,11 +33,7 @@ public class BookkeeperFunctionsMaterials {
 
     public void DeleteMaterial() {
         try {
-            List<Material> materials = library.GetMaterials();
-            if (materials.isEmpty()) {
-                System.out.println("No materials in the system yet.");
-                return;
-            }
+            ClearScreen();
             ViewMaterials();
             System.out.println("\nDelete Material");
             int materialID = getIntInput("Enter material ID: ");
@@ -52,28 +49,29 @@ public class BookkeeperFunctionsMaterials {
         }
     }
 
-public void ViewMaterials() {
-    try {
-        System.out.println("\nView Materials");
-        List<Material> materials = library.GetMaterials();
-        if (materials.isEmpty()) {
-            System.out.println("No materials in the system yet.");
-            return;
+    public void ViewMaterials() {
+        try {
+            ClearScreen();
+            System.out.println("\nView Materials");
+            List<Material> materials = library.GetMaterials();
+            if (materials.isEmpty()) {
+                System.out.println("No materials in the system yet.");
+                return;
+            }
+            for (Material material : materials) {
+                System.out.println("Material ID: " + material.GetMaterialID());
+                System.out.println("Title: " + material.GetTitle());
+                System.out.println("Genre: " + material.GetGenre());
+                System.out.println("Author: " + material.GetAuthor());
+                System.out.println("Publisher: " + material.GetPublisher());
+                System.out.println("Year Published: " + material.GetYearPublished());
+                System.out.println("Copies: " + material.GetCopies());
+                System.out.println();
+            }
+        } catch (Exception e) {
+            System.out.println("Error viewing materials: " + e.getMessage());
         }
-        for (Material material : materials) {
-            System.out.println("Material ID: " + material.GetMaterialID());
-            System.out.println("Title: " + material.GetTitle());
-            System.out.println("Genre: " + material.GetGenre());
-            System.out.println("Author: " + material.GetAuthor());
-            System.out.println("Publisher: " + material.GetPublisher());
-            System.out.println("Year Published: " + material.GetYearPublished());
-            System.out.println("Copies: " + material.GetCopies());
-            System.out.println();
-        }
-    } catch (Exception e) {
-        System.out.println("Error viewing materials: " + e.getMessage());
     }
-}
 
     private int getIntInput(String prompt) {
         while (true) {
@@ -99,6 +97,19 @@ public void ViewMaterials() {
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
             }
+        }
+    }
+
+    private void ClearScreen() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (Exception e) {
+            System.out.println("Error clearing screen: " + e.getMessage());
         }
     }
 }

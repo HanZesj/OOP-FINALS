@@ -14,6 +14,7 @@ public class BookkeeperFunctionsBorrower {
     }
 
     public void EditBorrower() {
+        ClearScreen();
         List<Borrower> borrowers = library.GetBorrowers();
         if (borrowers.isEmpty()) {
             System.out.println("No borrowers in the system yet.");
@@ -41,9 +42,11 @@ public class BookkeeperFunctionsBorrower {
         borrower.SetBirthday(birthday);
         borrower.SetContactNum(contactNum);
         borrower.SetEmail(email);
+        System.out.println("Borrower information updated successfully.");
     }
 
     public void DeleteBorrower() {
+        ClearScreen();
         List<Borrower> borrowers = library.GetBorrowers();
         if (borrowers.isEmpty()) {
             System.out.println("No borrowers in the system yet.");
@@ -62,7 +65,8 @@ public class BookkeeperFunctionsBorrower {
         System.out.println("Borrower deleted successfully.");
     }
 
-public void ViewBorrowers() {
+    public void ViewBorrowers() {
+        ClearScreen();
         System.out.println("\nView Borrowers");
         List<Borrower> borrowers = library.GetBorrowers();
         if (borrowers.isEmpty()) {
@@ -89,13 +93,14 @@ public void ViewBorrowers() {
     }
 
     public void SetBorrowerViolations() {
+        ClearScreen();
         List<Borrower> borrowers = library.GetBorrowers();
         if (borrowers.isEmpty()) {
             System.out.println("No borrowers in the system yet.");
             return;
         }
         ViewBorrowers();
-        System.out.println("\nset borrower violations");
+        System.out.println("\nSet Borrower Violations");
         String borrowerID = getStringInput("Enter borrower ID: ");
         int borrowerIDInt = Integer.parseInt(borrowerID);
         Borrower borrower = library.FindBorrower(borrowerIDInt);
@@ -110,6 +115,7 @@ public void ViewBorrowers() {
 
     public void ManageBorrowers() {
         while (true) {
+            ClearScreen();
             System.out.println("\nManage Borrowers");
             System.out.println("1. Edit Borrower");
             System.out.println("2. Delete Borrower");
@@ -154,6 +160,19 @@ public void ViewBorrowers() {
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
             }
+        }
+    }
+
+    private void ClearScreen() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (Exception e) {
+            System.out.println("Error clearing screen: " + e.getMessage());
         }
     }
 }

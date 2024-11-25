@@ -19,6 +19,7 @@ public class BorrowerFunctions {
 
     // Methods for viewing books and borrower information
     public void ViewAvailableBooks() {
+        ClearScreen();
         System.out.println("\nAvailable Books");
         for (Material material : library.GetMaterials()) {
             if (material.GetCopies() > 0) {
@@ -35,6 +36,7 @@ public class BorrowerFunctions {
     }
 
     public void ViewBorrowedBooks() {
+        ClearScreen();
         if (LoggedInBorrower == null) {
             System.out.println("You must be logged in to view your borrowed books.");
             return;
@@ -55,6 +57,7 @@ public class BorrowerFunctions {
     }
 
     public void ViewViolations() {
+        ClearScreen();
         if (LoggedInBorrower == null) {
             System.out.println("You must be logged in to view your violations.");
             return;
@@ -64,6 +67,7 @@ public class BorrowerFunctions {
     }
 
     public void ViewBorrowerInformation() {
+        ClearScreen();
         if (LoggedInBorrower == null) {
             System.out.println("You must be logged in to view your information.");
             return;
@@ -81,11 +85,12 @@ public class BorrowerFunctions {
 
     // Methods for borrowing and returning books
     public void BorrowBook() {
-        ViewAvailableBooks();
+        ClearScreen();
         if (LoggedInBorrower == null) {
             System.out.println("You must be logged in to borrow a book.");
             return;
         }
+        ViewAvailableBooks();
         System.out.println("\nBorrow Book");
         int materialID = getIntInput("Enter Material ID: ");
         Material material = library.FindMaterial(materialID);
@@ -103,11 +108,12 @@ public class BorrowerFunctions {
     }
 
     public void ReturnBook() {
-        ViewBorrowedBooks();
+        ClearScreen();
         if (LoggedInBorrower == null) {
             System.out.println("You must be logged in to return a book.");
             return;
         }
+        ViewBorrowedBooks();
         System.out.println("\nReturn Book");
         int materialID = getIntInput("Enter Material ID: ");
         Material material = library.FindMaterial(materialID);
@@ -145,6 +151,19 @@ public class BorrowerFunctions {
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
             }
+        }
+    }
+
+    private void ClearScreen() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (Exception e) {
+            System.out.println("Error clearing screen: " + e.getMessage());
         }
     }
 }
