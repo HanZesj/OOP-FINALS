@@ -7,6 +7,7 @@ public class Main {
     public static Library library = new Library();
     public static Bookkeeper bookkeeper = new Bookkeeper(library);
     public final static BorrowerFunctions borrowerFunctions = new BorrowerFunctions(library);
+    public final static BookkeeperFunctionsMaterials bookkeeperFunctionsMaterials = new BookkeeperFunctionsMaterials(library);
     public static Scanner scanner = new Scanner(System.in);
     public static Borrower LoggedInBorrower;
 
@@ -25,19 +26,21 @@ public class Main {
     // Methods for user type selection
     private static int GetUserType() {
         while (true) {
-            ClearScreen();
+            clearScreen();
             System.out.println("1. Bookkeeper");
             System.out.println("2. Borrower");
             System.out.println("3. Exit");
             System.out.print("Enter user type: ");
             int userType = scanner.nextInt();
-            if (userType == 1 || userType == 2 || userType == 3) {
-                return userType;
-            } else if (userType == 3) {
-                System.out.println("Exiting the program.");
-                System.exit(0); // Terminate the program
-            } else {
-                System.out.println("Invalid user type. Please try again.");
+            switch (userType) {
+                case 1, 2 -> {
+                    return userType;
+                }
+                case 3 -> {
+                    System.out.println("Exiting the program.");
+                    System.exit(0); // Terminate the program
+                }
+                default -> System.out.println("Invalid user type. Please try again.");
             }
         }
     }
@@ -45,7 +48,7 @@ public class Main {
     // Methods for bookkeeper menu
     private static void BookkeeperMenu() {
         while (true) {
-            ClearScreen();
+            clearScreen();
             System.out.println("---Book Keeper Interface---");
             System.out.println("1. Manage Borrowers.");
             System.out.println("2. Manage Materials.");
@@ -53,54 +56,9 @@ public class Main {
             int choice = getIntInput(":: ");
             switch (choice) {
                 case 1 -> bookkeeper.ManageBorrowers();
-                case 2 -> ManageMaterials();
+                case 2 -> bookkeeperFunctionsMaterials.ManageMaterials();
                 case 3 -> {
                     return; // Exit the BookkeeperMenu loop
-                }
-                default -> System.out.println("Invalid choice. Please try again.");
-            }
-        }
-    }
-
-    // Methods for managing borrowers
-    private static void AddBorrower() {
-        ClearScreen();
-        System.out.println("\nRegister Borrower");
-        String firstName = GetStringInput("Enter first name: ");
-        scanner.nextLine();
-        String lastName = GetStringInput("Enter last name: ");
-        String middleName = GetStringInput("Enter middle name: ");
-        String gender = GetStringInput("Enter gender: ");
-        int birthday = getIntInput("Enter birthday (YYYY/MM/DD): ");
-        scanner.nextLine();
-        int contactNum = getIntInput("Enter contact number: ");
-        scanner.nextLine();
-        String email = GetStringInput("Enter email: ");
-        String address = GetStringInput("Enter address: ");
-        Borrower borrower = new Borrower(library.GetNextBorrowerID(), firstName, lastName, middleName, gender, birthday, contactNum, email, address, library);
-        library.AddBorrower(borrower);
-        System.out.println("Borrower added successfully.");
-        System.out.println("Your new Borrower ID is: " + borrower.GetBorrowerID());
-    }
-
-    // Methods for managing materials
-    private static void ManageMaterials() {
-        while (true) {
-            ClearScreen();
-            System.out.println("\nManage Materials");
-            System.out.println("1. Add Material");
-            // System.out.println("2. Edit Material");
-            System.out.println("3. Delete Material");
-            System.out.println("4. View Materials");
-            System.out.println("5. Back to Main Menu");
-            int choice = getIntInput(":: ");
-            switch (choice) {
-                case 1 -> bookkeeper.AddMaterial();
-                // case 2 -> bookkeeper.EditMaterial();
-                case 3 -> bookkeeper.DeleteMaterial();
-                case 4 -> bookkeeper.ViewMaterials();
-                case 5 -> {
-                    return; // Exit the ManageMaterials loop
                 }
                 default -> System.out.println("Invalid choice. Please try again.");
             }
@@ -110,64 +68,21 @@ public class Main {
     // Methods for borrower menu
     private static void BorrowerMenu() {
         while (true) {
-            ClearScreen();
+            clearScreen();
             System.out.println("---Borrower Interface---");
             System.out.println("1. Login");
             System.out.println("2. Don't have an account? Register now.");
             System.out.println("3. Back to Main Menu.");
             int choice = getIntInput(":: ");
             switch (choice) {
-                case 1 -> BorrowerLogin();
-                case 2 -> AddBorrower();
+                case 1 -> borrowerFunctions.BorrowerLogin();
+                case 2 -> borrowerFunctions.AddBorrower();
                 case 3 -> {
                     return; // Exit the BorrowerMenu loop
                 }
                 default -> System.out.println("Invalid choice. Please try again.");
             }
         }
-    }
-
-    public static void BorrowerActionsMenu() {
-        while (true) {
-            ClearScreen();
-            System.out.println("\nWelcome " + LoggedInBorrower.GetFirstName() + " " + LoggedInBorrower.GetLastName());
-            System.out.println("1. View available books.");
-            System.out.println("2. Borrow a book.");
-            System.out.println("3. Return a book.");
-            System.out.println("4. View borrowed books.");
-            System.out.println("5. View violations.");
-            System.out.println("6. View your information.");
-            System.out.println("7. Logout.");
-            int choice = getIntInput(":: ");
-            switch (choice) {
-                case 1 -> borrowerFunctions.ViewAvailableBooks();
-                case 2 -> borrowerFunctions.BorrowBook();
-                case 3 -> borrowerFunctions.ReturnBook();
-                case 4 -> borrowerFunctions.ViewBorrowedBooks();
-                case 5 -> borrowerFunctions.ViewViolations();
-                case 6 -> borrowerFunctions.ViewBorrowerInformation();
-                case 7 -> {
-                    LoggedInBorrower = null;
-                    return; // Return to the main menu
-                }
-                default -> System.out.println("Invalid choice. Please try again.");
-            }
-        }
-    }
-
-    private static void BorrowerLogin() {
-        ClearScreen();
-        System.out.println("\nBorrower Login");
-        int borrowerID = getIntInput("Enter borrower ID: ");
-        Borrower borrower = library.FindBorrower(borrowerID);
-        if (borrower == null) {
-            System.out.println("Borrower not found.");
-            return;
-        }
-        LoggedInBorrower = borrower;
-        System.out.println("Login successful.");
-        borrowerFunctions.setLoggedInBorrower(borrower); // Ensure loggedInBorrower is set
-        BorrowerActionsMenu();
     }
 
     // Utility methods for input
@@ -198,16 +113,7 @@ public class Main {
         }
     }
 
-    private static void ClearScreen() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-            }
-        } catch (Exception e) {
-            System.out.println("Error clearing screen: " + e.getMessage());
-        }
+    private static void clearScreen() {
+        for (int i = 0; i < 50; ++i) System.out.println();
     }
 }

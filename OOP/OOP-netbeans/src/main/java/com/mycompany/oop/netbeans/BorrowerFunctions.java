@@ -19,7 +19,7 @@ public class BorrowerFunctions {
 
     // Methods for viewing books and borrower information
     public void ViewAvailableBooks() {
-        ClearScreen();
+        clearScreen();
         System.out.println("\nAvailable Books");
         for (Material material : library.GetMaterials()) {
             if (material.GetCopies() > 0) {
@@ -36,7 +36,7 @@ public class BorrowerFunctions {
     }
 
     public void ViewBorrowedBooks() {
-        ClearScreen();
+        clearScreen();
         if (LoggedInBorrower == null) {
             System.out.println("You must be logged in to view your borrowed books.");
             return;
@@ -57,7 +57,7 @@ public class BorrowerFunctions {
     }
 
     public void ViewViolations() {
-        ClearScreen();
+        clearScreen();
         if (LoggedInBorrower == null) {
             System.out.println("You must be logged in to view your violations.");
             return;
@@ -67,7 +67,7 @@ public class BorrowerFunctions {
     }
 
     public void ViewBorrowerInformation() {
-        ClearScreen();
+        clearScreen();
         if (LoggedInBorrower == null) {
             System.out.println("You must be logged in to view your information.");
             return;
@@ -85,7 +85,7 @@ public class BorrowerFunctions {
 
     // Methods for borrowing and returning books
     public void BorrowBook() {
-        ClearScreen();
+        clearScreen();
         if (LoggedInBorrower == null) {
             System.out.println("You must be logged in to borrow a book.");
             return;
@@ -108,7 +108,7 @@ public class BorrowerFunctions {
     }
 
     public void ReturnBook() {
-        ClearScreen();
+        clearScreen();
         if (LoggedInBorrower == null) {
             System.out.println("You must be logged in to return a book.");
             return;
@@ -124,6 +124,70 @@ public class BorrowerFunctions {
         LoggedInBorrower.ReturnMaterial(materialID);
         material.SetCopies(material.GetCopies() + 1);
         System.out.println("Book returned successfully.");
+    }
+
+    // Methods for managing borrowers
+    public void AddBorrower() {
+        clearScreen();
+        System.out.println("\nRegister Borrower");
+        String firstName = getStringInput("Enter first name: ");
+        scanner.nextLine();
+        String lastName = getStringInput("Enter last name: ");
+        String middleName = getStringInput("Enter middle name: ");
+        String gender = getStringInput("Enter gender: ");
+        int birthday = getIntInput("Enter birthday (YYYY/MM/DD): ");
+        scanner.nextLine();
+        int contactNum = getIntInput("Enter contact number: ");
+        scanner.nextLine();
+        String email = getStringInput("Enter email: ");
+        String address = getStringInput("Enter address: ");
+        Borrower borrower = new Borrower(library.GetNextBorrowerID(), firstName, lastName, middleName, gender, birthday, contactNum, email, address, library);
+        library.AddBorrower(borrower);
+        System.out.println("Borrower added successfully.");
+        System.out.println("Your new Borrower ID is: " + borrower.GetBorrowerID());
+    }
+
+    public void BorrowerActionsMenu() {
+        while (true) {
+            clearScreen();
+            System.out.println("\nWelcome " + LoggedInBorrower.GetFirstName() + " " + LoggedInBorrower.GetLastName());
+            System.out.println("1. View available books.");
+            System.out.println("2. Borrow a book.");
+            System.out.println("3. Return a book.");
+            System.out.println("4. View borrowed books.");
+            System.out.println("5. View violations.");
+            System.out.println("6. View your information.");
+            System.out.println("7. Logout.");
+            int choice = getIntInput(":: ");
+            switch (choice) {
+                case 1 -> ViewAvailableBooks();
+                case 2 -> BorrowBook();
+                case 3 -> ReturnBook();
+                case 4 -> ViewBorrowedBooks();
+                case 5 -> ViewViolations();
+                case 6 -> ViewBorrowerInformation();
+                case 7 -> {
+                    LoggedInBorrower = null;
+                    return; // Return to the main menu
+                }
+                default -> System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    public void BorrowerLogin() {
+        clearScreen();
+        System.out.println("\nBorrower Login");
+        int borrowerID = getIntInput("Enter borrower ID: ");
+        Borrower borrower = library.FindBorrower(borrowerID);
+        if (borrower == null) {
+            System.out.println("Borrower not found.");
+            return;
+        }
+        LoggedInBorrower = borrower;
+        System.out.println("Login successful.");
+        setLoggedInBorrower(borrower); // Ensure loggedInBorrower is set
+        BorrowerActionsMenu();
     }
 
     // Utility methods for input
@@ -154,16 +218,7 @@ public class BorrowerFunctions {
         }
     }
 
-    private void ClearScreen() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-            }
-        } catch (Exception e) {
-            System.out.println("Error clearing screen: " + e.getMessage());
-        }
+    private void clearScreen() {
+        for (int i = 0; i < 50; ++i) System.out.println();
     }
 }

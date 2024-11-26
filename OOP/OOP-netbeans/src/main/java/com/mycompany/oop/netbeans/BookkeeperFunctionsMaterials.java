@@ -13,6 +13,29 @@ public class BookkeeperFunctionsMaterials {
         this.scanner = new Scanner(System.in);
     }
 
+    public void ManageMaterials() {
+        while (true) {
+            ClearScreen();
+            System.out.println("\nManage Materials");
+            System.out.println("1. Add Material");
+            // System.out.println("2. Edit Material");
+            System.out.println("3. Delete Material");
+            System.out.println("4. View Materials");
+            System.out.println("5. Back to Main Menu");
+            int choice = getIntInput(":: ");
+            switch (choice) {
+                case 1 -> AddMaterial();
+                // case 2 -> EditMaterial();
+                case 3 -> DeleteMaterial();
+                case 4 -> ViewMaterials();
+                case 5 -> {
+                    return; // Exit the ManageMaterials loop
+                }
+                default -> System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
     public void AddMaterial() {
         try {
             ClearScreen();
@@ -100,7 +123,7 @@ public class BookkeeperFunctionsMaterials {
         }
     }
 
-    private void ClearScreen() {
+    private static void ClearScreen() {
         try {
             if (System.getProperty("os.name").contains("Windows")) {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
