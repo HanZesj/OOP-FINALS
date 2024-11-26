@@ -12,7 +12,6 @@ public class Main {
     public static Borrower LoggedInBorrower;
 
     public static void main(String args[]) {
-        // LoadLibraryData();
         while (true) {
             int userType = GetUserType();
             if (userType == 1) {

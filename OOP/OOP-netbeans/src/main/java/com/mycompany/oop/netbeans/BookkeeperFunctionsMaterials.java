@@ -18,14 +18,14 @@ public class BookkeeperFunctionsMaterials {
             ClearScreen();
             System.out.println("\nManage Materials");
             System.out.println("1. Add Material");
-            // System.out.println("2. Edit Material");
+            System.out.println("2. Edit Material");
             System.out.println("3. Delete Material");
             System.out.println("4. View Materials");
             System.out.println("5. Back to Main Menu");
             int choice = getIntInput(":: ");
             switch (choice) {
                 case 1 -> AddMaterial();
-                // case 2 -> EditMaterial();
+                case 2 -> EditMaterial();
                 case 3 -> DeleteMaterial();
                 case 4 -> ViewMaterials();
                 case 5 -> {
@@ -51,6 +51,35 @@ public class BookkeeperFunctionsMaterials {
             System.out.println("Material added successfully with ID: " + material.GetMaterialID());
         } catch (Exception e) {
             System.out.println("Error adding material: " + e.getMessage());
+        }
+    }
+
+    public void EditMaterial() {
+        try {
+            ClearScreen();
+            ViewMaterials();
+            System.out.println("\nEdit Material");
+            int materialID = getIntInput("Enter material ID: ");
+            Material material = library.FindMaterial(materialID);
+            if (material == null) {
+                System.out.println("Material not found.");
+                return;
+            }
+            String title = getStringInput("Enter title: ");
+            String genre = getStringInput("Enter genre: ");
+            String author = getStringInput("Enter author: ");
+            String publisher = getStringInput("Enter publisher: ");
+            int yearPublished = getIntInput("Enter year published: ");
+            int copies = getIntInput("Enter number of copies: ");
+            material.SetTitle(title);
+            material.SetGenre(genre);
+            material.SetAuthor(author);
+            material.SetPublisher(publisher);
+            material.SetYearPublished(yearPublished);
+            material.SetCopies(copies);
+            System.out.println("Material edited successfully.");
+        } catch (Exception e) {
+            System.out.println("Error editing material: " + e.getMessage());
         }
     }
 
@@ -123,16 +152,7 @@ public class BookkeeperFunctionsMaterials {
         }
     }
 
-    private static void ClearScreen() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-            }
-        } catch (Exception e) {
-            System.out.println("Error clearing screen: " + e.getMessage());
-        }
+    private void ClearScreen() {
+        for (int i = 0; i < 50; ++i) System.out.println();
     }
 }

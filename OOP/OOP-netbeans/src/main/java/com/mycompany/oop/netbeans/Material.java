@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public abstract class Material implements Serializable {
     private String title;
-    private final String author;
-    private final String publisher;
-    private final String genre;
-    private final int yearPublished;
-    private final int materialID;
+    private  String author;
+    private  String publisher;
+    private String genre;
+    private  int yearPublished;
+    private  final int materialID;
     private static int nextID = 1;
     protected int copies;
     
@@ -36,16 +36,33 @@ public abstract class Material implements Serializable {
     public String GetGenre(){
         return genre;
     }
+
+    public void SetGenre(String genre){
+        this.genre = genre;
+    }
+
     public int GetYearPublished(){
         return yearPublished;
+    }
+
+    public void SetYearPublished(int yearPublished){
+        this.yearPublished = yearPublished;
     }
 
     public String GetPublisher(){
         return publisher;
     }
 
+    public void SetPublisher(String publisher){
+        this.publisher = publisher;
+    }
+
     public String GetAuthor(){
         return author;
+    }
+
+    public void SetAuthor(String author){
+        this.author = author;
     }
 
     public int GetCopies(){

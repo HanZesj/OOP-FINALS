@@ -31,7 +31,7 @@ public class BookkeeperFunctionsBorrower {
         String firstName = getStringInput("Enter new first name: ");
         String lastName = getStringInput("Enter new last name: ");
         String gender = getStringInput("Enter new gender: ");
-        int birthday = getIntInput("Enter new birthday: ");
+        String birthday = getStringInput("Enter new birthday: ");
         int contactNum = getIntInput("Enter new contact number: ");
         String email = getStringInput("Enter new email: ");
 
@@ -161,15 +161,6 @@ public class BookkeeperFunctionsBorrower {
     }
 
     private void ClearScreen() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-            }
-        } catch (Exception e) {
-            System.out.println("Error clearing screen: " + e.getMessage());
-        }
+        for (int i = 0; i < 50; ++i) System.out.println();
     }
 }

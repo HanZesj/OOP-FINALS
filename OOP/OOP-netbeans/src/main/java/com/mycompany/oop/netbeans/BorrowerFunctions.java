@@ -135,12 +135,12 @@ public class BorrowerFunctions {
         String lastName = getStringInput("Enter last name: ");
         String middleName = getStringInput("Enter middle name: ");
         String gender = getStringInput("Enter gender: ");
-        int birthday = getIntInput("Enter birthday (YYYY/MM/DD): ");
+        String birthday = getBirthdayInput("Enter birthday (YYYY-MM-DD or YYYY/MM/DD): ");
         scanner.nextLine();
         int contactNum = getIntInput("Enter contact number: ");
         scanner.nextLine();
-        String email = getStringInput("Enter email: ");
-        String address = getStringInput("Enter address: ");
+        String email = getEmailInput("Enter email: ");
+        String address = getAddressInput("Enter address: ");
         Borrower borrower = new Borrower(library.GetNextBorrowerID(), firstName, lastName, middleName, gender, birthday, contactNum, email, address, library);
         library.AddBorrower(borrower);
         System.out.println("Borrower added successfully.");
@@ -210,6 +210,51 @@ public class BorrowerFunctions {
                 String input = scanner.nextLine();
                 if (!input.matches("[a-zA-Z\\s]+")) {
                     throw new IllegalArgumentException("Input must be a string.");
+                }
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+    }
+
+    private String getEmailInput(String prompt) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                String input = scanner.nextLine();
+                if (!input.contains("@")) {
+                    throw new IllegalArgumentException("Email must contain '@'.");
+                }
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+    }
+
+    private String getAddressInput(String prompt) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                String input = scanner.nextLine();
+                if (!input.matches("[a-zA-Z0-9\\s]+")) {
+                    throw new IllegalArgumentException("Address must be alphanumeric.");
+                }
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+    }
+
+    private String getBirthdayInput(String prompt) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                String input = scanner.nextLine();
+                if (!input.matches("\\d{4}[-/]\\d{2}[-/]\\d{2}")) {
+                    throw new IllegalArgumentException("Birthday must be in the format YYYY-MM-DD or YYYY/MM/DD.");
                 }
                 return input;
             } catch (IllegalArgumentException e) {
