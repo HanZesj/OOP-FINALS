@@ -22,8 +22,7 @@ public class BookkeeperFunctionsBorrower {
         }
         ViewBorrowers();
         System.out.println("\nEdit Borrower");
-        String borrowerID = getStringInput("Enter borrower ID: ");
-        int borrowerIDInt = Integer.parseInt(borrowerID);
+        int borrowerIDInt = getIntInput("Enter borrower ID: ");
         Borrower borrower = library.FindBorrower(borrowerIDInt);
         if (borrower == null) {
             System.out.println("Borrower not found.");
@@ -54,8 +53,7 @@ public class BookkeeperFunctionsBorrower {
         }
         ViewBorrowers();
         System.out.println("\nDelete Borrower");
-        String borrowerID = getStringInput("Enter borrower ID: ");
-        int borrowerIDInt = Integer.parseInt(borrowerID);
+        int borrowerIDInt = getIntInput("Enter borrower ID: ");
         Borrower borrower = library.FindBorrower(borrowerIDInt);
         if (borrower == null) {
             System.out.println("Borrower not found.");
@@ -63,6 +61,26 @@ public class BookkeeperFunctionsBorrower {
         }
         library.RemoveBorrower(borrower.GetBorrowerID());
         System.out.println("Borrower deleted successfully.");
+    }
+
+    public void SetBorrowerViolations() {
+        ClearScreen();
+        List<Borrower> borrowers = library.GetBorrowers();
+        if (borrowers.isEmpty()) {
+            System.out.println("No borrowers in the system yet.");
+            return;
+        }
+        ViewBorrowers();
+        System.out.println("\nSet Borrower Violations");
+        int borrowerIDInt = getIntInput("Enter borrower ID: ");
+        Borrower borrower = library.FindBorrower(borrowerIDInt);
+        if (borrower == null) {
+            System.out.println("Borrower not found.");
+            return;
+        }
+        int numberOfViolations = getIntInput("Enter number of violations: ");
+        borrower.SetNumberOfViolations(numberOfViolations);
+        System.out.println("Number of violations set successfully.");
     }
 
     public void ViewBorrowers() {
@@ -90,27 +108,6 @@ public class BookkeeperFunctionsBorrower {
             }
             System.out.println();
         }
-    }
-
-    public void SetBorrowerViolations() {
-        ClearScreen();
-        List<Borrower> borrowers = library.GetBorrowers();
-        if (borrowers.isEmpty()) {
-            System.out.println("No borrowers in the system yet.");
-            return;
-        }
-        ViewBorrowers();
-        System.out.println("\nSet Borrower Violations");
-        String borrowerID = getStringInput("Enter borrower ID: ");
-        int borrowerIDInt = Integer.parseInt(borrowerID);
-        Borrower borrower = library.FindBorrower(borrowerIDInt);
-        if (borrower == null) {
-            System.out.println("Borrower not found.");
-            return;
-        }
-        int numberOfViolations = getIntInput("Enter number of violations: ");
-        borrower.SetNumberOfViolations(numberOfViolations);
-        System.out.println("Number of violations set successfully.");
     }
 
     public void ManageBorrowers() {

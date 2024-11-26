@@ -31,7 +31,7 @@ public class Main {
             System.out.println("3. Exit");
             System.out.print("Enter user type: ");
             int userType = scanner.nextInt();
-            if (userType == 1 || userType == 2) {
+            if (userType == 1 || userType == 2 || userType == 3) {
                 return userType;
             } else if (userType == 3) {
                 System.out.println("Exiting the program.");
