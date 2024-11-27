@@ -131,14 +131,11 @@ public class BorrowerFunctions {
         clearScreen();
         System.out.println("\nRegister Borrower");
         String firstName = getStringInput("Enter first name: ");
-        scanner.nextLine();
         String lastName = getStringInput("Enter last name: ");
         String middleName = getStringInput("Enter middle name: ");
         String gender = getStringInput("Enter gender: ");
         String birthday = getBirthdayInput("Enter birthday (YYYY-MM-DD or YYYY/MM/DD): ");
-        scanner.nextLine();
         int contactNum = getIntInput("Enter contact number: ");
-        scanner.nextLine();
         String email = getEmailInput("Enter email: ");
         String address = getAddressInput("Enter address: ");
         Borrower borrower = new Borrower(library.GetNextBorrowerID(), firstName, lastName, middleName, gender, birthday, contactNum, email, address, library);
