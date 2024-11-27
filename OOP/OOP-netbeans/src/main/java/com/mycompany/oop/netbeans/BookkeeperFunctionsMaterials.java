@@ -108,7 +108,7 @@ public class BookkeeperFunctionsMaterials {
 
     public void ViewMaterials() {
         try {
-            // ClearScreen();
+            ClearScreen();
             System.out.println("\nView Materials");
             List<Material> materials = library.GetMaterials();
             if (materials.isEmpty()) {
@@ -126,7 +126,6 @@ public class BookkeeperFunctionsMaterials {
                 System.out.println();
                 System.err.println("Press enter to continue...");
                 scanner.nextLine();
-                ClearScreen();
             }
         } catch (InputMismatchException | IllegalArgumentException e) {
             System.out.println("Error viewing materials: " + e.getMessage());
@@ -160,10 +159,11 @@ public class BookkeeperFunctionsMaterials {
         }
     }
 
-    private static void ClearScreen() {
+    private static void ClearScreen(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        // Fallback to printing new lines if the escape sequences are not supported
-        for (int i = 0; i < 50; ++i) System.out.println();
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
     }
 }

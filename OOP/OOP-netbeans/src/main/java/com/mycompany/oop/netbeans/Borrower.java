@@ -10,7 +10,7 @@ public class Borrower {
     private String lastName;
     private String middleName;
     private String gender;
-    private String birthday; // Changed from int to String
+    private String birthday;
     private int contactNum;
     private String email;
     private String address;

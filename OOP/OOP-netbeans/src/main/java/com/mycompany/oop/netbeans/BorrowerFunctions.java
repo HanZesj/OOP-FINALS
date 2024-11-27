@@ -19,7 +19,7 @@ public class BorrowerFunctions {
 
     // Methods for viewing books and borrower information
     public void ViewAvailableBooks() {
-        clearScreen();
+        ClearScreen();
         System.out.println("\nAvailable Books");
         for (Material material : library.GetMaterials()) {
             if (material.GetCopies() > 0) {
@@ -36,7 +36,7 @@ public class BorrowerFunctions {
     }
 
     public void ViewBorrowedBooks() {
-        clearScreen();
+        ClearScreen();
         if (LoggedInBorrower == null) {
             System.out.println("You must be logged in to view your borrowed books.");
             return;
@@ -57,7 +57,7 @@ public class BorrowerFunctions {
     }
 
     public void ViewViolations() {
-        clearScreen();
+        ClearScreen();
         if (LoggedInBorrower == null) {
             System.out.println("You must be logged in to view your violations.");
             return;
@@ -67,7 +67,7 @@ public class BorrowerFunctions {
     }
 
     public void ViewBorrowerInformation() {
-        clearScreen();
+        ClearScreen();
         if (LoggedInBorrower == null) {
             System.out.println("You must be logged in to view your information.");
             return;
@@ -85,7 +85,7 @@ public class BorrowerFunctions {
 
     // Methods for borrowing and returning books
     public void BorrowBook() {
-        clearScreen();
+        ClearScreen();
         if (LoggedInBorrower == null) {
             System.out.println("You must be logged in to borrow a book.");
             return;
@@ -108,7 +108,7 @@ public class BorrowerFunctions {
     }
 
     public void ReturnBook() {
-        clearScreen();
+        ClearScreen();
         if (LoggedInBorrower == null) {
             System.out.println("You must be logged in to return a book.");
             return;
@@ -128,7 +128,7 @@ public class BorrowerFunctions {
 
     // Methods for managing borrowers
     public void AddBorrower() {
-        clearScreen();
+        ClearScreen();
         System.out.println("\nRegister Borrower");
         String firstName = getStringInput("Enter first name: ");
         String lastName = getStringInput("Enter last name: ");
@@ -143,13 +143,12 @@ public class BorrowerFunctions {
         System.out.println("Borrower added successfully.");
         System.out.println("Your new Borrower ID is: " + borrower.GetBorrowerID());
         System.err.println("Press enter to continue...");
-        scanner.nextLine(); // Clear the newline character
         scanner.nextLine();
     }
 
     public void BorrowerActionsMenu() {
+        ClearScreen();
         while (true) {
-            clearScreen();
             System.out.println("\nWelcome " + LoggedInBorrower.GetFirstName() + " " + LoggedInBorrower.GetLastName());
             System.out.println("1. View available books.");
             System.out.println("2. Borrow a book.");
@@ -176,7 +175,7 @@ public class BorrowerFunctions {
     }
 
     public void BorrowerLogin() {
-        clearScreen();
+        ClearScreen();
         System.out.println("\nBorrower Login");
         int borrowerID = getIntInput("Enter borrower ID: ");
         Borrower borrower = library.FindBorrower(borrowerID);
@@ -263,10 +262,11 @@ public class BorrowerFunctions {
         }
     }
 
-    private static void clearScreen() {
+    private static void ClearScreen(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        // Fallback to printing new lines if the escape sequences are not supported
-        for (int i = 0; i < 50; ++i) System.out.println();
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
     }
 }

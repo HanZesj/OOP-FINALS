@@ -160,10 +160,11 @@ public class BookkeeperFunctionsBorrower {
         }
     }
 
-    private static void ClearScreen() {
+    private static void ClearScreen(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        // Fallback to printing new lines if the escape sequences are not supported
-        for (int i = 0; i < 50; ++i) System.out.println();
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
     }
 }

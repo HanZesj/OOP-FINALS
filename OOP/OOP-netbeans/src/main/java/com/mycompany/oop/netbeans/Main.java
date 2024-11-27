@@ -25,8 +25,8 @@ public class Main {
     // Methods for user type selection
     private static int GetUserType() {
         while (true) {
-            clearScreen();
-            System.out.println("1. Bookkeeper");
+            ClearScreen();
+            System.out.println("1. Book keeper");
             System.out.println("2. Borrower");
             System.out.println("3. Exit");
             System.out.print("Enter user type: ");
@@ -47,7 +47,7 @@ public class Main {
     // Methods for bookkeeper menu
     private static void BookkeeperMenu() {
         while (true) {
-            clearScreen();
+            ClearScreen();
             System.out.println("---Book Keeper Interface---");
             System.out.println("1. Manage Borrowers.");
             System.out.println("2. Manage Materials.");
@@ -67,7 +67,7 @@ public class Main {
     // Methods for borrower menu
     private static void BorrowerMenu() {
         while (true) {
-            clearScreen();
+            ClearScreen();
             System.out.println("---Borrower Interface---");
             System.out.println("1. Login");
             System.out.println("2. Don't have an account? Register now.");
@@ -112,10 +112,11 @@ public class Main {
         }
     }
 
-    private static void clearScreen() {
+    private static void ClearScreen(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        // Fallback to printing new lines if the escape sequences are not supported
-        for (int i = 0; i < 50; ++i) System.out.println();
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
     }
 }
