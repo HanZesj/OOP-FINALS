@@ -142,6 +142,9 @@ public class BorrowerFunctions {
         library.AddBorrower(borrower);
         System.out.println("Borrower added successfully.");
         System.out.println("Your new Borrower ID is: " + borrower.GetBorrowerID());
+        System.err.println("Press enter to continue...");
+        scanner.nextLine(); // Clear the newline character
+        scanner.nextLine();
     }
 
     public void BorrowerActionsMenu() {
@@ -261,16 +264,9 @@ public class BorrowerFunctions {
     }
 
     private static void clearScreen() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-            }
-        } catch (Exception e) {
-            // Fallback to printing new lines if the clear command fails
-            for (int i = 0; i < 50; ++i) System.out.println();
-        }
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        // Fallback to printing new lines if the escape sequences are not supported
+        for (int i = 0; i < 50; ++i) System.out.println();
     }
 }

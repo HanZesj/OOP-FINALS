@@ -49,6 +49,9 @@ public class BookkeeperFunctionsMaterials {
             Material material = new Book(title, genre, author, publisher, yearPublished, copies);
             library.AddMaterial(material);
             System.out.println("Material added successfully with ID: " + material.GetMaterialID());
+            System.err.println("Press enter to continue...");
+            scanner.nextLine(); // Clear the newline character
+            scanner.nextLine();
         } catch (Exception e) {
             System.out.println("Error adding material: " + e.getMessage());
         }
@@ -56,7 +59,6 @@ public class BookkeeperFunctionsMaterials {
 
     public void EditMaterial() {
         try {
-            ClearScreen();
             ViewMaterials();
             System.out.println("\nEdit Material");
             int materialID = getIntInput("Enter material ID: ");
@@ -78,6 +80,9 @@ public class BookkeeperFunctionsMaterials {
             material.SetYearPublished(yearPublished);
             material.SetCopies(copies);
             System.out.println("Material edited successfully.");
+            System.err.println("Press enter to continue...");
+            scanner.nextLine(); // Clear the newline character
+            scanner.nextLine();
         } catch (Exception e) {
             System.out.println("Error editing material: " + e.getMessage());
         }
@@ -103,7 +108,7 @@ public class BookkeeperFunctionsMaterials {
 
     public void ViewMaterials() {
         try {
-            ClearScreen();
+            // ClearScreen();
             System.out.println("\nView Materials");
             List<Material> materials = library.GetMaterials();
             if (materials.isEmpty()) {
@@ -119,6 +124,9 @@ public class BookkeeperFunctionsMaterials {
                 System.out.println("Year Published: " + material.GetYearPublished());
                 System.out.println("Copies: " + material.GetCopies());
                 System.out.println();
+                System.err.println("Press enter to continue...");
+                scanner.nextLine();
+                ClearScreen();
             }
         } catch (InputMismatchException | IllegalArgumentException e) {
             System.out.println("Error viewing materials: " + e.getMessage());
@@ -153,16 +161,9 @@ public class BookkeeperFunctionsMaterials {
     }
 
     private static void ClearScreen() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-            }
-        } catch (Exception e) {
-            // Fallback to printing new lines if the clear command fails
-            for (int i = 0; i < 50; ++i) System.out.println();
-        }
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        // Fallback to printing new lines if the escape sequences are not supported
+        for (int i = 0; i < 50; ++i) System.out.println();
     }
 }
