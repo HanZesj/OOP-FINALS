@@ -40,6 +40,7 @@ public class BookkeeperFunctionsMaterials {
         try {
             ClearScreen();
             System.out.println("\nAdd Material");
+            scanner.nextLine();
             String title = getStringInput("Enter title: ");
             String genre = getStringInput("Enter genre: ");
             String author = getStringInput("Enter author: ");
@@ -59,6 +60,12 @@ public class BookkeeperFunctionsMaterials {
 
     public void EditMaterial() {
         try {
+            ClearScreen();
+            List<Material> materials = library.GetMaterials();
+            if (materials.isEmpty()) {
+                System.out.println("No materials in the system yet.");
+                return;
+            }
             ViewMaterials();
             System.out.println("\nEdit Material");
             int materialID = getIntInput("Enter material ID: ");
@@ -91,6 +98,11 @@ public class BookkeeperFunctionsMaterials {
     public void DeleteMaterial() {
         try {
             ClearScreen();
+            List<Material> materials = library.GetMaterials();
+            if (materials.isEmpty()) {
+                System.out.println("No materials in the system yet.");
+                return;
+            }
             ViewMaterials();
             System.out.println("\nDelete Material");
             int materialID = getIntInput("Enter material ID: ");
@@ -108,7 +120,7 @@ public class BookkeeperFunctionsMaterials {
 
     public void ViewMaterials() {
         try {
-            ClearScreen();
+            ClearScreen();    
             System.out.println("\nView Materials");
             List<Material> materials = library.GetMaterials();
             if (materials.isEmpty()) {
@@ -124,8 +136,6 @@ public class BookkeeperFunctionsMaterials {
                 System.out.println("Year Published: " + material.GetYearPublished());
                 System.out.println("Copies: " + material.GetCopies());
                 System.out.println();
-                System.err.println("Press enter to continue...");
-                scanner.nextLine();
             }
         } catch (InputMismatchException | IllegalArgumentException e) {
             System.out.println("Error viewing materials: " + e.getMessage());
@@ -139,7 +149,7 @@ public class BookkeeperFunctionsMaterials {
                 return scanner.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Error: Input must be an integer.");
-                scanner.next(); // Clear the invalid input
+                scanner.next(); 
             }
         }
     }
@@ -148,9 +158,9 @@ public class BookkeeperFunctionsMaterials {
         while (true) {
             try {
                 System.out.print(prompt);
-                String input = scanner.nextLine();
-                if (!input.matches("[a-zA-Z\\s]+")) {
-                    throw new IllegalArgumentException("Input must be a string.");
+                String input = scanner.nextLine().trim();
+                if (input.isEmpty() || !input.matches("[a-zA-Z\\s]+")) {
+                    throw new IllegalArgumentException("Input must be a non-empty string containing only letters and spaces.");
                 }
                 return input;
             } catch (IllegalArgumentException e) {

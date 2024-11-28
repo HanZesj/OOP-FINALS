@@ -149,8 +149,8 @@ public class BookkeeperFunctionsBorrower {
         while (true) {
             try {
                 System.out.print(prompt);
-                String input = scanner.nextLine();
-                if (!input.matches("[a-zA-Z\\s]+")) {
+                String input = scanner.nextLine().trim();
+                if (input.isEmpty() || !input.matches("[a-zA-Z\\s]+")) {
                     throw new IllegalArgumentException("Input must be a string.");
                 }
                 return input;

@@ -136,6 +136,7 @@ public class BorrowerFunctions {
         String gender = getStringInput("Enter gender: ");
         String birthday = getBirthdayInput("Enter birthday (YYYY-MM-DD or YYYY/MM/DD): ");
         int contactNum = getIntInput("Enter contact number: ");
+        scanner.nextLine();
         String email = getEmailInput("Enter email: ");
         String address = getAddressInput("Enter address: ");
         Borrower borrower = new Borrower(library.GetNextBorrowerID(), firstName, lastName, middleName, gender, birthday, contactNum, email, address, library);
@@ -207,7 +208,7 @@ public class BorrowerFunctions {
             try {
                 System.out.print(prompt);
                 String input = scanner.nextLine();
-                if (!input.matches("[a-zA-Z\\s]+")) {
+                if (input.isEmpty() || !input.matches("[a-zA-Z\\s]+")) {
                     throw new IllegalArgumentException("Input must be a string.");
                 }
                 return input;
@@ -221,8 +222,8 @@ public class BorrowerFunctions {
         while (true) {
             try {
                 System.out.print(prompt);
-                String input = scanner.nextLine();
-                if (!input.contains("@")) {
+                String input = scanner.nextLine().trim();
+                if (input.isEmpty() || !input.contains("@")) {
                     throw new IllegalArgumentException("Email must contain '@'.");
                 }
                 return input;
@@ -236,7 +237,7 @@ public class BorrowerFunctions {
         while (true) {
             try {
                 System.out.print(prompt);
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (!input.matches("[a-zA-Z0-9\\s]+")) {
                     throw new IllegalArgumentException("Address must be alphanumeric.");
                 }

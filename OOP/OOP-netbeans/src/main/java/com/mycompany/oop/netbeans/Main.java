@@ -101,7 +101,7 @@ public class Main {
         while (true) {
             try {
                 System.out.print(prompt);
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (!input.matches("[a-zA-Z\\s]+") && !input.isEmpty()) {
                     System.out.println("Input must be a string. Please try again.");
                 }
