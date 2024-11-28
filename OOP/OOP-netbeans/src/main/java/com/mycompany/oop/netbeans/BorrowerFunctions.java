@@ -1,6 +1,7 @@
 package com.mycompany.oop.netbeans;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class BorrowerFunctions {
@@ -35,26 +36,31 @@ public class BorrowerFunctions {
         }
     }
 
-    public void ViewBorrowedBooks() {
-        ClearScreen();
-        if (LoggedInBorrower == null) {
-            System.out.println("You must be logged in to view your borrowed books.");
-            return;
-        }
-        System.out.println("\nBorrowed Books");
-        for (String materialID : LoggedInBorrower.GetBorrowedMaterials()) {
-            Material material = library.FindMaterial(Integer.parseInt(materialID));
-            if (material != null) {
-                System.out.println("Material ID: " + material.GetMaterialID());
-                System.out.println("Title: " + material.GetTitle());
-                System.out.println("Author: " + material.GetAuthor());
-                System.out.println("Publisher: " + material.GetPublisher());
-                System.out.println("Year Published: " + material.GetYearPublished());
-                System.out.println("Type: " + material.GetType());
-                System.out.println();
-            }
+public void ViewBorrowedBooks() {
+    clearScreen();
+    if (LoggedInBorrower == null) {
+        System.out.println("You must be logged in to view your borrowed books.");
+        return;
+    }
+    System.out.println("\nBorrowed Books");
+    List<String> borrowedMaterials = LoggedInBorrower.GetBorrowedMaterials();
+    if (borrowedMaterials.isEmpty()) {
+        System.out.println("You have not borrowed any books.");
+        return;
+    }
+    for (String materialID : borrowedMaterials) {
+        Material material = library.FindMaterial(Integer.parseInt(materialID));
+        if (material != null) {
+            System.out.println("Material ID: " + material.GetMaterialID());
+            System.out.println("Title: " + material.GetTitle());
+            System.out.println("Author: " + material.GetAuthor());
+            System.out.println("Publisher: " + material.GetPublisher());
+            System.out.println("Year Published: " + material.GetYearPublished());
+            System.out.println("Type: " + material.GetType());
+            System.out.println();
         }
     }
+}
 
     public void ViewViolations() {
         ClearScreen();
