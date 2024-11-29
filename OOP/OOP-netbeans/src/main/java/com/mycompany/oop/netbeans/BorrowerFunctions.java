@@ -22,6 +22,11 @@ public class BorrowerFunctions {
     public void ViewAvailableBooks() {
         ClearScreen();
         System.out.println("\nAvailable Books");
+        List<Material> materials = library.GetMaterials();
+        if (materials.isEmpty()) {
+            System.out.println("No books in the library yet.");
+            return;
+        }
         for (Material material : library.GetMaterials()) {
             if (material.GetCopies() > 0) {
                 System.out.println("Material ID: " + material.GetMaterialID());
@@ -40,8 +45,6 @@ public void ViewBorrowedBooks() {
     ClearScreen();
     if (LoggedInBorrower == null) {
         System.out.println("You must be logged in to view your borrowed books.");
-        System.err.println("Press enter to continue...");
-        scanner.nextLine(); // Clear the newline character
         return;
     }
     System.out.println("\nBorrowed Books");
@@ -94,27 +97,37 @@ public void ViewBorrowedBooks() {
     // Methods for borrowing and returning books
     public void BorrowBook() {
         ClearScreen();
-        if (LoggedInBorrower == null) {
-            System.out.println("You must be logged in to borrow a book.");
-            return;
+        try {
+            List<Material> materials = library.GetMaterials();
+            if (materials.isEmpty()) {
+                System.out.println("No books available in the system yet.");
+                System.out.println("Press enter to continue...");
+                return;
+            }
+            ViewAvailableBooks();
+            System.out.println("\nBorrow Book");
+            int materialID = getIntInput("Enter Material ID: ");
+            Material material = library.FindMaterial(materialID);
+            if (material == null) {
+                System.out.println("Material not found.");
+                System.out.println("Press enter to continue...");
+                scanner.nextLine(); // Wait for the user to press Enter 
+                return;
+            }
+            if (material.GetCopies() <= 0) {
+                System.out.println("No copies available.");
+                System.out.println("Press enter to continue...");
+                scanner.nextLine(); // Wait for the user to press Enter
+                return;
+            }
+            material.SetCopies(material.GetCopies() - 1);
+            System.out.println("Book borrowed successfully.");
+            System.out.println("Press enter to continue...");
+            scanner.nextLine(); // Wait for the user to press Enter
+        } catch (Exception e) {
+            ClearScreenY();
+            System.out.println("Error borrowing book: " + e.getMessage());
         }
-        ViewAvailableBooks();
-        System.out.println("\nBorrow Book");
-        int materialID = getIntInput("Enter Material ID: ");
-        Material material = library.FindMaterial(materialID);
-        if (material == null) {
-            System.out.println("Material not found.");
-            return;
-        }
-        if (material.GetCopies() <= 0) {
-            System.out.println("No copies available.");
-            return;
-        }
-        LoggedInBorrower.BorrowMaterial(materialID);
-        material.SetCopies(material.GetCopies() - 1);
-        System.out.println("Book borrowed successfully.");
-        System.err.println("Press enter to continue...");
-        scanner.nextLine();
     }
 
     public void ReturnBook() {
