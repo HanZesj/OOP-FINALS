@@ -142,6 +142,7 @@ public void ViewBorrowedBooks() {
     public void AddBorrower() {
         ClearScreen();
         System.out.println("\nRegister Borrower");
+        scanner.nextLine();
         String firstName = getStringInput("Enter first name: ");
         String lastName = getStringInput("Enter last name: ");
         String middleName = getStringInput("Enter middle name: ");
