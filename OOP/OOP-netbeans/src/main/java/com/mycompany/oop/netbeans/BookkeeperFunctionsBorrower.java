@@ -14,7 +14,7 @@ public class BookkeeperFunctionsBorrower {
     }
 
     public void EditBorrower() {
-        ClearScreen();
+        clearScreen();
         List<Borrower> borrowers = library.GetBorrowers();
         if (borrowers.isEmpty()) {
             System.out.println("No borrowers in the system yet.");
@@ -28,28 +28,35 @@ public class BookkeeperFunctionsBorrower {
             System.out.println("Borrower not found.");
             return;
         }
+        scanner.nextLine();
         String firstName = getStringInput("Enter new first name: ");
         String lastName = getStringInput("Enter new last name: ");
+        String middleName = getStringInput("Enter new middle name: ");
         String gender = getStringInput("Enter new gender: ");
-        String birthday = getStringInput("Enter new birthday: ");
+        String birthday = getBirthdayInput("Enter new birthday (YYYY-MM-DD or YYYY/MM/DD): ");
         scanner.nextLine();
         int contactNum = getIntInput("Enter new contact number: ");
-        scanner.nextLine();
-        String email = getStringInput("Enter new email: ");
+
+        String email = getEmailInput("Enter new email: ");
+        scanner.nextLine(); // Clear the newline character
+        String address = getAddressInput("Enter new address: ");
 
         borrower.SetFirstName(firstName);
         borrower.SetLastName(lastName);
+        borrower.SetMiddleName(middleName);
         borrower.SetGender(gender);
         borrower.SetBirthday(birthday);
         borrower.SetContactNum(contactNum);
         borrower.SetEmail(email);
+        borrower.SetAddress(address);
         System.out.println("Borrower information updated successfully.");
         System.out.println("Press enter to continue...");
-        scanner.nextLine(); // Clear the newline character
+        scanner.nextLine(); // Wait for the user to press Enter
+        scanner.nextLine(); // Clear the buffer
     }
 
     public void DeleteBorrower() {
-        ClearScreen();
+        clearScreen();
         List<Borrower> borrowers = library.GetBorrowers();
         if (borrowers.isEmpty()) {
             System.out.println("No borrowers in the system yet.");
@@ -68,7 +75,7 @@ public class BookkeeperFunctionsBorrower {
     }
 
     public void SetBorrowerViolations() {
-        ClearScreen();
+        clearScreen();
         List<Borrower> borrowers = library.GetBorrowers();
         if (borrowers.isEmpty()) {
             System.out.println("No borrowers in the system yet.");
@@ -88,7 +95,7 @@ public class BookkeeperFunctionsBorrower {
     }
 
     public void ViewBorrowers() {
-        ClearScreen();
+        clearScreen();
         System.out.println("\nView Borrowers");
         List<Borrower> borrowers = library.GetBorrowers();
         if (borrowers.isEmpty()) {
@@ -116,7 +123,7 @@ public class BookkeeperFunctionsBorrower {
 
     public void ManageBorrowers() {
         while (true) {
-            ClearScreen();
+            clearScreen();
             System.out.println("\nManage Borrowers");
             System.out.println("1. Edit Borrower");
             System.out.println("2. Delete Borrower");
@@ -155,7 +162,7 @@ public class BookkeeperFunctionsBorrower {
                 System.out.print(prompt);
                 String input = scanner.nextLine().trim();
                 if (input.isEmpty() || !input.matches("[a-zA-Z\\s]+")) {
-                    throw new IllegalArgumentException("Input must be a string.");
+                    throw new IllegalArgumentException("Input must be a non-empty string containing only letters and spaces.");
                 }
                 return input;
             } catch (IllegalArgumentException e) {
@@ -164,11 +171,55 @@ public class BookkeeperFunctionsBorrower {
         }
     }
 
-    private static void ClearScreen(){
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
+    private String getEmailInput(String prompt) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                String input = scanner.nextLine().trim();
+                if (input.isEmpty() || !input.contains("@")) {
+                    throw new IllegalArgumentException("Email must contain '@' and cannot be empty.");
+                }
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
         }
+    }
+
+    private String getBirthdayInput(String prompt) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                String input = scanner.nextLine().trim();
+                if (!input.matches("\\d{4}[-/]\\d{2}[-/]\\d{2}")) {
+                    throw new IllegalArgumentException("Birthday must be in the format YYYY-MM-DD or YYYY/MM/DD.");
+                }
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+    }
+
+    private String getAddressInput(String prompt) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                String input = scanner.nextLine().trim();
+                if (input.isEmpty() || !input.matches("[a-zA-Z0-9\\s]+")) {
+                    throw new IllegalArgumentException("Address must be a non-empty alphanumeric string.");
+                }
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+    }
+
+    private void clearScreen() {
+        System.out.print("\033c");
+        System.out.flush();
+        // Fallback to printing new lines if the escape sequence is not supported
+        for (int i = 0; i < 50; ++i) System.out.println();
     }
 }
