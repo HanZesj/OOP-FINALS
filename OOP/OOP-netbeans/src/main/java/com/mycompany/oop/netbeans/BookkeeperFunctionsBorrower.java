@@ -17,7 +17,6 @@ public class BookkeeperFunctionsBorrower {
         clearScreen();
         List<Borrower> borrowers = library.GetBorrowers();
         if (borrowers.isEmpty()) {            
-            ClearScreenY();
             System.out.println("No borrowers in the system yet.");
             return;
         }
@@ -26,7 +25,6 @@ public class BookkeeperFunctionsBorrower {
         int borrowerIDInt = getIntInput("Enter borrower ID: ");
         Borrower borrower = library.FindBorrower(borrowerIDInt);
         if (borrower == null) {
-            ClearScreenY();
             System.out.println("Borrower not found.");
             return;
         }
@@ -81,7 +79,6 @@ public class BookkeeperFunctionsBorrower {
         clearScreen();
         List<Borrower> borrowers = library.GetBorrowers();
         if (borrowers.isEmpty()) {
-            ClearScreenY();
             System.out.println("No borrowers in the system yet.");
             return;
         }
@@ -103,7 +100,6 @@ public class BookkeeperFunctionsBorrower {
         System.out.println("\nView Borrowers");
         List<Borrower> borrowers = library.GetBorrowers();
         if (borrowers.isEmpty()) {
-            ClearScreenY();
             System.out.println("No borrowers in the system yet.");
             return;
         }
@@ -226,13 +222,6 @@ public class BookkeeperFunctionsBorrower {
         for (int i = 0; i < 50; i++) {
             System.out.println();
         }
-    }
-    private static void ClearScreenY() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        // Fallback to printing fewer new lines if the escape sequence is not supported
-        for (int i = 0; i < 2; i++) {
-            System.out.println();
-        }
-    }
+    
+}
 }
