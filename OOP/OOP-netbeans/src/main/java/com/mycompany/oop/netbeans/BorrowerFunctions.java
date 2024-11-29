@@ -37,7 +37,7 @@ public class BorrowerFunctions {
     }
 
 public void ViewBorrowedBooks() {
-    clearScreen();
+    ClearScreen();
     if (LoggedInBorrower == null) {
         System.out.println("You must be logged in to view your borrowed books.");
         return;

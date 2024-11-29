@@ -32,7 +32,9 @@ public class BookkeeperFunctionsBorrower {
         String lastName = getStringInput("Enter new last name: ");
         String gender = getStringInput("Enter new gender: ");
         String birthday = getStringInput("Enter new birthday: ");
+        scanner.nextLine();
         int contactNum = getIntInput("Enter new contact number: ");
+        scanner.nextLine();
         String email = getStringInput("Enter new email: ");
 
         borrower.SetFirstName(firstName);
@@ -42,6 +44,8 @@ public class BookkeeperFunctionsBorrower {
         borrower.SetContactNum(contactNum);
         borrower.SetEmail(email);
         System.out.println("Borrower information updated successfully.");
+        System.out.println("Press enter to continue...");
+        scanner.nextLine(); // Clear the newline character
     }
 
     public void DeleteBorrower() {
