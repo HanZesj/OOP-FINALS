@@ -39,7 +39,7 @@ public class Main {
                     System.out.println("Exiting the program.");
                     System.exit(0); // Terminate the program
                 }
-                default -> System.out.println("Invalid user type. Please try again.");
+                default -> System.out.println("Invalid user type. Select Book keeper or Borrower.");
             }
         }
     }
@@ -79,7 +79,7 @@ public class Main {
                 case 3 -> {
                     return; // Exit the BorrowerMenu loop
                 }
-                default -> System.out.println("Invalid choice. Please try again.");
+                default -> System.out.println("Invalid choice. Please Select a valid option.");
             }
         }
     }

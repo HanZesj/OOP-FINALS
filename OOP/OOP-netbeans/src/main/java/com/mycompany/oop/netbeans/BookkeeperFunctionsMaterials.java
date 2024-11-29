@@ -125,7 +125,7 @@ public class BookkeeperFunctionsMaterials {
 
     public void ViewMaterials() {
         try {
-            ClearScreen();    
+            // ClearScreen();    
             System.out.println("\nView Materials");
             List<Material> materials = library.GetMaterials();
             if (materials.isEmpty()) {
