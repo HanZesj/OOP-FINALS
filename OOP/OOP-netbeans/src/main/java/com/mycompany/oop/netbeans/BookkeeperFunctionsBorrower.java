@@ -16,7 +16,8 @@ public class BookkeeperFunctionsBorrower {
     public void EditBorrower() {
         clearScreen();
         List<Borrower> borrowers = library.GetBorrowers();
-        if (borrowers.isEmpty()) {
+        if (borrowers.isEmpty()) {            
+            ClearScreenY();
             System.out.println("No borrowers in the system yet.");
             return;
         }
@@ -25,6 +26,7 @@ public class BookkeeperFunctionsBorrower {
         int borrowerIDInt = getIntInput("Enter borrower ID: ");
         Borrower borrower = library.FindBorrower(borrowerIDInt);
         if (borrower == null) {
+            ClearScreenY();
             System.out.println("Borrower not found.");
             return;
         }
@@ -65,16 +67,21 @@ public class BookkeeperFunctionsBorrower {
         Borrower borrower = library.FindBorrower(borrowerIDInt);
         if (borrower == null) {
             System.out.println("Borrower not found.");
+            System.err.println("Press enter to continue...");
+            scanner.nextLine(); // Clear the newline character
             return;
         }
         library.RemoveBorrower(borrower.GetBorrowerID());
         System.out.println("Borrower deleted successfully.");
+        System.err.println("Press enter to continue...");
+        scanner.nextLine(); // Clear the newline character
     }
 
     public void SetBorrowerViolations() {
         clearScreen();
         List<Borrower> borrowers = library.GetBorrowers();
         if (borrowers.isEmpty()) {
+            ClearScreenY();
             System.out.println("No borrowers in the system yet.");
             return;
         }
@@ -92,14 +99,14 @@ public class BookkeeperFunctionsBorrower {
     }
 
     public void ViewBorrowers() {
-        // clearScreen();
+        clearScreen();
         System.out.println("\nView Borrowers");
         List<Borrower> borrowers = library.GetBorrowers();
         if (borrowers.isEmpty()) {
+            ClearScreenY();
             System.out.println("No borrowers in the system yet.");
             return;
         }
-        clearScreen();
         for (Borrower borrower : borrowers) {
             System.out.println("Borrower ID: " + borrower.GetBorrowerID());
             System.out.println("Name: " + borrower.GetFirstName() + " " + borrower.GetLastName());
@@ -121,7 +128,6 @@ public class BookkeeperFunctionsBorrower {
 
     public void ManageBorrowers() {
         while (true) {
-            clearScreen();
             System.out.println("\nManage Borrowers");
             System.out.println("1. Edit Borrower");
             System.out.println("2. Delete Borrower");
@@ -214,10 +220,19 @@ public class BookkeeperFunctionsBorrower {
         }
     }
 
-    private void clearScreen() {
-        System.out.print("\033c");
+    private static void clearScreen(){
+        System.out.print("\033[H\033[2J");
         System.out.flush();
-        // Fallback to printing new lines if the escape sequence is not supported
-        for (int i = 0; i < 50; ++i) System.out.println();
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
+    }
+    private static void ClearScreenY() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        // Fallback to printing fewer new lines if the escape sequence is not supported
+        for (int i = 0; i < 2; i++) {
+            System.out.println();
+        }
     }
 }

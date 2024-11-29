@@ -15,7 +15,6 @@ public class BookkeeperFunctionsMaterials {
 
     public void ManageMaterials() {
         while (true) {
-            ClearScreen();
             System.out.println("\nManage Materials");
             System.out.println("1. Add Material");
             System.out.println("2. Edit Material");
@@ -37,8 +36,8 @@ public class BookkeeperFunctionsMaterials {
     }
 
     public void AddMaterial() {
+        ClearScreen();
         try {
-            ClearScreen();
             System.out.println("\nAdd Material");
             scanner.nextLine();
             String title = getStringInput("Enter title: ");
@@ -58,11 +57,10 @@ public class BookkeeperFunctionsMaterials {
     }
 
     public void EditMaterial() {
+        ClearScreen();
         try {
-            // ClearScreen();
             List<Material> materials = library.GetMaterials();
             if (materials.isEmpty()) {
-                ClearScreen();
                 System.out.println("No materials in the system yet.");
                 return;
             }
@@ -71,8 +69,10 @@ public class BookkeeperFunctionsMaterials {
             int materialID = getIntInput("Enter material ID: ");
             Material material = library.FindMaterial(materialID);
             if (material == null) {
-                ClearScreen();
+                // ClearScreen();
                 System.out.println("Material not found.");
+                System.err.println("Press enter to continue...");
+                scanner.nextLine(); // Clear the newline character
                 return;
             }
             scanner.nextLine();
@@ -88,6 +88,7 @@ public class BookkeeperFunctionsMaterials {
             material.SetPublisher(publisher);
             material.SetYearPublished(yearPublished);
             material.SetCopies(copies);
+            ClearScreen();
             System.out.println("Material edited successfully.");
             System.err.println("Press enter to continue...");
             scanner.nextLine(); // Clear the newline character
@@ -97,10 +98,11 @@ public class BookkeeperFunctionsMaterials {
     }
 
     public void DeleteMaterial() {
+        ClearScreen();
         try {
             List<Material> materials = library.GetMaterials();
             if (materials.isEmpty()) {
-                ClearScreen();
+                // ClearScreen();
                 System.out.println("No materials in the system yet.");
                 return;
             }
@@ -109,8 +111,10 @@ public class BookkeeperFunctionsMaterials {
             int materialID = getIntInput("Enter material ID: ");
             Material material = library.FindMaterial(materialID);
             if (material == null) {
-                ClearScreen();
+                // ClearScreen();
                 System.out.println("Material not found.");
+                System.err.println("Press enter to continue...");
+                scanner.nextLine(); // Clear the newline character
                 return;
             }
             library.DeleteMaterial(materialID);
@@ -124,12 +128,11 @@ public class BookkeeperFunctionsMaterials {
     }
 
     public void ViewMaterials() {
-        try {
-            // ClearScreen();    
+        ClearScreen();
+        try { 
             System.out.println("\nView Materials");
             List<Material> materials = library.GetMaterials();
             if (materials.isEmpty()) {
-                // ClearScreen();
                 System.out.println("No materials in the system yet.");
                 return;
             }
@@ -183,4 +186,5 @@ public class BookkeeperFunctionsMaterials {
             System.out.println();
         }
     }
+    
 }

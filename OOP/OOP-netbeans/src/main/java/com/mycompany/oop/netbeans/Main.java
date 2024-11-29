@@ -46,8 +46,8 @@ public class Main {
 
     // Methods for bookkeeper menu
     private static void BookkeeperMenu() {
+        ClearScreen();
         while (true) {
-            ClearScreen();
             System.out.println("---Book Keeper Interface---");
             System.out.println("1. Manage Borrowers.");
             System.out.println("2. Manage Materials.");
@@ -66,8 +66,8 @@ public class Main {
 
     // Methods for borrower menu
     private static void BorrowerMenu() {
+        ClearScreen();
         while (true) {
-            ClearScreen();
             System.out.println("---Borrower Interface---");
             System.out.println("1. Login");
             System.out.println("2. Don't have an account? Register now.");

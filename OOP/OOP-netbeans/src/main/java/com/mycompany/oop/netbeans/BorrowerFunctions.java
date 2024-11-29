@@ -40,6 +40,8 @@ public void ViewBorrowedBooks() {
     ClearScreen();
     if (LoggedInBorrower == null) {
         System.out.println("You must be logged in to view your borrowed books.");
+        System.err.println("Press enter to continue...");
+        scanner.nextLine(); // Clear the newline character
         return;
     }
     System.out.println("\nBorrowed Books");
@@ -191,6 +193,7 @@ public void ViewBorrowedBooks() {
         int borrowerID = getIntInput("Enter borrower ID: ");
         Borrower borrower = library.FindBorrower(borrowerID);
         if (borrower == null) {
+            ClearScreenY();
             System.out.println("Borrower not found.");
             return;
         }
@@ -277,6 +280,15 @@ public void ViewBorrowedBooks() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
+    }
+
+    private static void ClearScreenY() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        // Fallback to printing fewer new lines if the escape sequence is not supported
+        for (int i = 0; i < 1; i++) {
             System.out.println();
         }
     }
