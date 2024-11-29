@@ -24,8 +24,8 @@ public class Main {
 
     // Methods for user type selection
     private static int GetUserType() {
+        ClearScreen();
         while (true) {
-            ClearScreen();
             System.out.println("1. Book keeper");
             System.out.println("2. Borrower");
             System.out.println("3. Exit");
