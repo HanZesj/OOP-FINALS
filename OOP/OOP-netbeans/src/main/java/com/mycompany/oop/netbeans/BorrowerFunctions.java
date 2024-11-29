@@ -111,6 +111,8 @@ public void ViewBorrowedBooks() {
         LoggedInBorrower.BorrowMaterial(materialID);
         material.SetCopies(material.GetCopies() - 1);
         System.out.println("Book borrowed successfully.");
+        System.err.println("Press enter to continue...");
+        scanner.nextLine();
     }
 
     public void ReturnBook() {
@@ -130,6 +132,8 @@ public void ViewBorrowedBooks() {
         LoggedInBorrower.ReturnMaterial(materialID);
         material.SetCopies(material.GetCopies() + 1);
         System.out.println("Book returned successfully.");
+        System.err.println("Press enter to continue...");
+        scanner.nextLine();
     }
 
     // Methods for managing borrowers

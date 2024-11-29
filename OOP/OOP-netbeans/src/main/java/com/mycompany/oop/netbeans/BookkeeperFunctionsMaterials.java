@@ -52,7 +52,6 @@ public class BookkeeperFunctionsMaterials {
             System.out.println("Material added successfully with ID: " + material.GetMaterialID());
             System.err.println("Press enter to continue...");
             scanner.nextLine(); // Clear the newline character
-            scanner.nextLine();
         } catch (Exception e) {
             System.out.println("Error adding material: " + e.getMessage());
         }
@@ -60,9 +59,10 @@ public class BookkeeperFunctionsMaterials {
 
     public void EditMaterial() {
         try {
-            ClearScreen();
+            // ClearScreen();
             List<Material> materials = library.GetMaterials();
             if (materials.isEmpty()) {
+                ClearScreen();
                 System.out.println("No materials in the system yet.");
                 return;
             }
@@ -71,6 +71,7 @@ public class BookkeeperFunctionsMaterials {
             int materialID = getIntInput("Enter material ID: ");
             Material material = library.FindMaterial(materialID);
             if (material == null) {
+                ClearScreen();
                 System.out.println("Material not found.");
                 return;
             }
@@ -90,7 +91,6 @@ public class BookkeeperFunctionsMaterials {
             System.out.println("Material edited successfully.");
             System.err.println("Press enter to continue...");
             scanner.nextLine(); // Clear the newline character
-            scanner.nextLine();
         } catch (Exception e) {
             System.out.println("Error editing material: " + e.getMessage());
         }
@@ -98,9 +98,9 @@ public class BookkeeperFunctionsMaterials {
 
     public void DeleteMaterial() {
         try {
-            ClearScreen();
             List<Material> materials = library.GetMaterials();
             if (materials.isEmpty()) {
+                ClearScreen();
                 System.out.println("No materials in the system yet.");
                 return;
             }
@@ -109,11 +109,15 @@ public class BookkeeperFunctionsMaterials {
             int materialID = getIntInput("Enter material ID: ");
             Material material = library.FindMaterial(materialID);
             if (material == null) {
+                ClearScreen();
                 System.out.println("Material not found.");
                 return;
             }
             library.DeleteMaterial(materialID);
+            ClearScreen();
             System.out.println("Material deleted successfully.");
+            System.err.println("Press enter to continue...");
+            scanner.nextLine(); // Clear the newline character
         } catch (Exception e) {
             System.out.println("Error deleting material: " + e.getMessage());
         }
@@ -125,10 +129,12 @@ public class BookkeeperFunctionsMaterials {
             System.out.println("\nView Materials");
             List<Material> materials = library.GetMaterials();
             if (materials.isEmpty()) {
+                // ClearScreen();
                 System.out.println("No materials in the system yet.");
                 return;
             }
             for (Material material : materials) {
+                // ClearScreen();
                 System.out.println("Material ID: " + material.GetMaterialID());
                 System.out.println("Title: " + material.GetTitle());
                 System.out.println("Genre: " + material.GetGenre());

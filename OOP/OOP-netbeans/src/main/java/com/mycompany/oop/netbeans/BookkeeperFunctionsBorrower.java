@@ -37,7 +37,6 @@ public class BookkeeperFunctionsBorrower {
         int contactNum = getIntInput("Enter new contact number: ");
         scanner.nextLine();
         String email = getEmailInput("Enter new email: ");
-        scanner.nextLine();
         String address = getAddressInput("Enter new address: ");
 
         borrower.SetFirstName(firstName);
@@ -50,7 +49,7 @@ public class BookkeeperFunctionsBorrower {
         borrower.SetAddress(address);
         System.out.println("Borrower information updated successfully.");
         System.out.println("Press enter to continue...");
-        scanner.nextLine(); // Wait for the user to press Enter
+        scanner.nextLine(); 
     }
 
     public void DeleteBorrower() {
@@ -93,13 +92,14 @@ public class BookkeeperFunctionsBorrower {
     }
 
     public void ViewBorrowers() {
-        clearScreen();
+        // clearScreen();
         System.out.println("\nView Borrowers");
         List<Borrower> borrowers = library.GetBorrowers();
         if (borrowers.isEmpty()) {
             System.out.println("No borrowers in the system yet.");
             return;
         }
+        clearScreen();
         for (Borrower borrower : borrowers) {
             System.out.println("Borrower ID: " + borrower.GetBorrowerID());
             System.out.println("Name: " + borrower.GetFirstName() + " " + borrower.GetLastName());
