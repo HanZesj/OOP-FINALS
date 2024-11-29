@@ -34,11 +34,10 @@ public class BookkeeperFunctionsBorrower {
         String middleName = getStringInput("Enter new middle name: ");
         String gender = getStringInput("Enter new gender: ");
         String birthday = getBirthdayInput("Enter new birthday (YYYY-MM-DD or YYYY/MM/DD): ");
-        scanner.nextLine();
         int contactNum = getIntInput("Enter new contact number: ");
-
+        scanner.nextLine();
         String email = getEmailInput("Enter new email: ");
-        scanner.nextLine(); // Clear the newline character
+        scanner.nextLine();
         String address = getAddressInput("Enter new address: ");
 
         borrower.SetFirstName(firstName);
@@ -52,7 +51,6 @@ public class BookkeeperFunctionsBorrower {
         System.out.println("Borrower information updated successfully.");
         System.out.println("Press enter to continue...");
         scanner.nextLine(); // Wait for the user to press Enter
-        scanner.nextLine(); // Clear the buffer
     }
 
     public void DeleteBorrower() {
@@ -137,7 +135,7 @@ public class BookkeeperFunctionsBorrower {
                 case 3 -> ViewBorrowers();
                 case 4 -> SetBorrowerViolations();
                 case 5 -> {
-                    return; // Return to the main menu in Main.java
+                    return; 
                 }
                 default -> System.out.println("Invalid choice. Please try again.");
             }
@@ -151,7 +149,7 @@ public class BookkeeperFunctionsBorrower {
                 return scanner.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Error: Input must be an integer.");
-                scanner.next(); // Clear the invalid input
+                scanner.next(); 
             }
         }
     }

@@ -74,6 +74,7 @@ public class BookkeeperFunctionsMaterials {
                 System.out.println("Material not found.");
                 return;
             }
+            scanner.nextLine();
             String title = getStringInput("Enter title: ");
             String genre = getStringInput("Enter genre: ");
             String author = getStringInput("Enter author: ");
